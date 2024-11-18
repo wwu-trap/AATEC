@@ -14,7 +14,7 @@ rng('shuffle');
 Texts_AATEC_Object;
 
 Screen('Preference', 'SkipSyncTests', 1);
-conBlack = 1;
+
 
 % Setup PTB with some default values
 PsychDefaultSetup(2);
@@ -23,12 +23,26 @@ PsychDefaultSetup(2);
 rng('shuffle');
 
 %----------------------------------------------------------------------
+%                       conditions
+%----------------------------------------------------------------------
+debug = false;
+debug_key = true;
+conBlack = false;
+%----------------------------------------------------------------------
 %                       Essential Paths
 %----------------------------------------------------------------------
 currentDir = pwd;
+
 ImgPath = fullfile(currentDir,'Pictures','Object');
 ImgPracPath = fullfile(currentDir,'Pictures', 'PicsPracObj');
 ImgEmoPath = fullfile(currentDir,"Pictures");
+
+addpath(genpath(currentDir));
+
+if ~exist(fullfile(currentDir, 'Results'),'dir')
+    mkdir(fullfile(currentDir, 'Results'))
+end
+resultsDir = fullfile(currentDir,'Results');
 
 %----------------------------------------------------------------------
 %                       Monitor
@@ -51,15 +65,12 @@ grey = (white*.5412);
 black = BlackIndex(screenNumber);
 
 % Open the screen
-debug = false;
-debug_key = false;
-
 if debug
     winCor = []; %[0 0 720 450];
 else
     winCor = [];
 end
-if conBlack == false
+if conBlack
     [window, windowRect] = PsychImaging('OpenWindow', screenNumber, black, winCor, 32, 2);
 else
     [window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, winCor, 32, 2);
@@ -293,11 +304,6 @@ rectStop = [xCenter - squareSize, yCenter - squareSize,...
 StopY = yCenter + screenYpixels*.20;
 
 try
-    if ~exist(fullfile(currentDir, 'Results'),'dir')
-        mkdir(fullfile(currentDir, 'Results'))
-    end
-    resultsDir = fullfile(currentDir,'Results');
-
     getNumber = true;
     participantNum = 100000 + randperm(899999,1);
     while getNumber
