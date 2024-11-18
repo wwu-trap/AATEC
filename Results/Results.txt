@@ -1,0 +1,6 @@
+Participants' results will be saved here.
+For each participant, there will be 8 files:
+(1) color_{Participant Nr}.mat: showing the color-to-condition assignment.
+(2) dirImages_{Participant Nr}.mat: showing the image-to-color assignment
+(3-5) logFile_{Participant Nr}_{Session Nr}.mat: log files of each sessions of the participant
+(6-8) workSpace_{Participant Nr}_{Session Nr}.mat: workspace of each session of the participant
